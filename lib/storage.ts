@@ -1,7 +1,6 @@
 export type ApiKeys = {
   grokKey: string;
   googleBooksKey: string;
-  geminiKey: string;
 };
 
 export type Book = {
@@ -64,8 +63,7 @@ export function hasApiKeys(): boolean {
     return (
       keys !== null &&
       !!keys.grokKey &&
-      !!keys.googleBooksKey &&
-      !!keys.geminiKey
+      !!keys.googleBooksKey 
     );
   } catch {
     return false;
