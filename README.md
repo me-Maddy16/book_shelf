@@ -87,9 +87,6 @@ Get them free from:
 
 All your books and preferences are stored in your 
 browser's localStorage. Nothing is sent to any server 
-except API calls to Grok, Gemini, and Google Books.
+except API calls to Grok and Google Books.
 Your API keys never leave your device.
 
-## Built With
-
-Built in a single session using Cursor + Claude.
