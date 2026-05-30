@@ -7,7 +7,6 @@ export default function SettingsPage() {
   const router = useRouter()
   const [grokKey, setGrokKey] = useState('')
   const [googleBooksKey, setGoogleBooksKey] = useState('')
-  const [geminiKey, setGeminiKey] = useState('')
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
   const [keysExist, setKeysExist] = useState(false)
@@ -17,27 +16,23 @@ export default function SettingsPage() {
     if (keys) {
       setGrokKey(keys.grokKey)
       setGoogleBooksKey(keys.googleBooksKey)
-      setGeminiKey(keys.geminiKey ?? '')
       setKeysExist(true)
     }
   }, [])
 
   const handleSave = () => {
-    if (!grokKey.trim() || !googleBooksKey.trim() || !geminiKey.trim()) {
-      setError('Please enter all API keys')
+    if (!grokKey.trim() || !googleBooksKey.trim()) {
+      setError('Please enter both API keys')
       return
     }
 
     const saved = saveApiKeys({
       grokKey: grokKey.trim(),
       googleBooksKey: googleBooksKey.trim(),
-      geminiKey: geminiKey.trim(),
     })
 
     if (!saved) {
-      setError(
-        'Could not save keys. Check Safari settings allow website data storage.'
-      )
+      setError('Could not save keys. Check Safari settings allow website data storage.')
       setSuccess(false)
       return
     }
@@ -51,13 +46,7 @@ export default function SettingsPage() {
         router.push('/')
       } catch {
         window.location.href = '/'
-        return
       }
-      window.setTimeout(() => {
-        if (window.location.pathname.includes('/settings')) {
-          window.location.href = '/'
-        }
-      }, 300)
     }, 1500)
   }
 
@@ -129,7 +118,7 @@ export default function SettingsPage() {
           </a>
         </div>
 
-        <div style={{ marginBottom: '20px' }}>
+        <div style={{ marginBottom: '28px' }}>
           <label style={{ color: '#d1d5db', fontSize: '14px', fontWeight: '500', display: 'block', marginBottom: '6px' }}>
             Google Books API Key
           </label>
@@ -152,32 +141,6 @@ export default function SettingsPage() {
           />
           <a href="https://console.cloud.google.com" target="_blank" style={{ color: '#60a5fa', fontSize: '12px', textDecoration: 'none' }}>
             Get free key at console.cloud.google.com →
-          </a>
-        </div>
-
-        <div style={{ marginBottom: '28px' }}>
-          <label style={{ color: '#d1d5db', fontSize: '14px', fontWeight: '500', display: 'block', marginBottom: '6px' }}>
-            Gemini API Key
-          </label>
-          <input
-            type="password"
-            value={geminiKey}
-            onChange={e => setGeminiKey(e.target.value)}
-            placeholder="AI..."
-            style={{
-              width: '100%',
-              backgroundColor: '#1f2937',
-              border: '1px solid #374151',
-              borderRadius: '10px',
-              padding: '12px',
-              color: '#ffffff',
-              fontSize: '14px',
-              outline: 'none',
-              boxSizing: 'border-box'
-            }}
-          />
-          <a href="https://aistudio.google.com" target="_blank" style={{ color: '#60a5fa', fontSize: '12px', textDecoration: 'none' }}>
-            Get free key at aistudio.google.com →
           </a>
         </div>
 
